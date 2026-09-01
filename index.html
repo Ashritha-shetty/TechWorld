@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechWorld - Electronics & Gadgets</title>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+    <div class="top-header">
+
+        <div class="logo" onclick="showPage('home')">
+            <i class="fa-solid fa-microchip"></i>
+            <span>Tech<span>World</span></span>
+        </div>
+
+        <div class="search-box">
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search smartphones, laptops, headphones..."
+            >
+            <button onclick="searchProducts()">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </div>
+
+        <div class="header-icons">
+
+            <button onclick="showPage('account')" title="Account">
+                <i class="fa-regular fa-user"></i>
+            </button>
+
+            <button onclick="showPage('wishlist')" title="Wishlist">
+                <i class="fa-regular fa-heart"></i>
+                <span id="wishlistCount">0</span>
+            </button>
+
+            <button onclick="showPage('cart')" title="Cart">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span id="cartCount">0</span>
+            </button>
+
+        </div>
+    </div>
+
+    <nav id="navbar">
+
+        <button class="menu-button" onclick="toggleMobileMenu()">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <div class="nav-links">
+
+            <a onclick="showPage('home')">
+                <i class="fa-solid fa-house"></i> Home
+            </a>
+
+            <a onclick="showPage('products')">
+                <i class="fa-solid fa-store"></i> Products
+            </a>
+
+            <a onclick="filterCategory('Smartphones')">
+                <i class="fa-solid fa-mobile-screen"></i> Smartphones
+            </a>
+
+            <a onclick="filterCategory('Laptops')">
+                <i class="fa-solid fa-laptop"></i> Laptops
+            </a>
+
+            <a onclick="filterCategory('Audio')">
+                <i class="fa-solid fa-headphones"></i> Audio
+            </a>
+
+            <a onclick="filterCategory('Wearables')">
+                <i class="fa-solid fa-clock"></i> Wearables
+            </a>
+
+            <a onclick="filterCategory('Accessories')">
+                <i class="fa-solid fa-plug"></i> Accessories
+            </a>
+
+            <a onclick="showPage('deals')">
+                <i class="fa-solid fa-tags"></i> Deals
+            </a>
+
+            <!-- TRACK ORDER -->
+            <a onclick="showPage('tracking')">
+                <i class="fa-solid fa-truck"></i> Track Order
+            </a>
+
+            <a onclick="showPage('about')">
+                About
+            </a>
+
+            <a onclick="showPage('contact')">
+                Contact
+            </a>
+
+        </div>
+    </nav>
+</header>
+
+
+<main>
+
+<!-- ================= HOME ================= -->
+
+<section id="homePage" class="page active-page">
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <p class="section-label">MY TECHWORLD</p>
+
+            <h1>
+                Upgrade Your<br>
+                <span>Digital World</span>
+            </h1>
+
+            <p>
+                Discover the latest smartphones, laptops,
+                audio devices, wearables and accessories.
+            </p>
+
+            <button class="btn btn-primary"
+                    onclick="showPage('products')">
+                Shop Now
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+
+        </div>
+
+        <div class="hero-icon">
+            <i class="fa-solid fa-microchip"></i>
+        </div>
+
+    </section>
+
+
+    <section class="section">
+
+        <div class="section-title">
+
+            <div>
+                <p class="section-label">SHOP BY CATEGORY</p>
+                <h2>Explore Categories</h2>
+            </div>
+
+        </div>
+
+        <div class="category-grid">
+
+            <div class="category-card"
+                 onclick="filterCategory('Smartphones')">
+                <i class="fa-solid fa-mobile-screen-button"></i>
+                <h3>Smartphones</h3>
+            </div>
+
+            <div class="category-card"
+                 onclick="filterCategory('Laptops')">
+                <i class="fa-solid fa-laptop"></i>
+                <h3>Laptops</h3>
+            </div>
+
+            <div class="category-card"
+                 onclick="filterCategory('Audio')">
+                <i class="fa-solid fa-headphones"></i>
+                <h3>Audio</h3>
+            </div>
+
+            <div class="category-card"
+                 onclick="filterCategory('Wearables')">
+                <i class="fa-solid fa-clock"></i>
+                <h3>Wearables</h3>
+            </div>
+
+            <div class="category-card"
+                 onclick="filterCategory('Accessories')">
+                <i class="fa-solid fa-plug"></i>
+                <h3>Accessories</h3>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="section">
+
+        <div class="section-title">
+
+            <div>
+                <p class="section-label">TOP PICKS</p>
+                <h2>Featured Products</h2>
+            </div>
+
+            <button class="btn btn-outline"
+                    onclick="showPage('products')">
+                View All
+            </button>
+
+        </div>
+
+        <div id="featuredProducts"
+             class="product-grid"></div>
+
+    </section>
+
+</section>
+
+
+<!-- ================= PRODUCTS ================= -->
+
+<section id="productsPage" class="page">
+
+    <div class="page-header">
+
+        <div class="container">
+
+            <p class="section-label">TECHWORLD STORE</p>
+
+            <h1>All Products</h1>
+
+            <p>Find the perfect technology for you.</p>
+
+        </div>
+
+    </div>
+
+
+    <div class="container products-layout">
+
+        <aside class="filters">
+
+            <h3>Filters</h3>
+
+            <div class="filter-group">
+
+                <h4>Category</h4>
+
+                <label>
+                    <input type="radio"
+                           name="category"
+                           value="All"
+                           checked
+                           onchange="applyFilters()">
+                    All
+                </label>
+
+                <label>
+                    <input type="radio"
+                           name="category"
+                           value="Smartphones"
+                           onchange="applyFilters()">
+                    Smartphones
+                </label>
+
+                <label>
+                    <input type="radio"
+                           name="category"
+                           value="Laptops"
+                           onchange="applyFilters()">
+                    Laptops
+                </label>
+
+                <label>
+                    <input type="radio"
+                           name="category"
+                           value="Audio"
+                           onchange="applyFilters()">
+                    Audio
+                </label>
+
+                <label>
+                    <input type="radio"
+                           name="category"
+                           value="Wearables"
+                           onchange="applyFilters()">
+                    Wearables
+                </label>
+
+                <label>
+                    <input type="radio"
+                           name="category"
+                           value="Accessories"
+                           onchange="applyFilters()">
+                    Accessories
+                </label>
+
+            </div>
+
+
+            <div class="filter-group">
+
+                <h4>Brand</h4>
+
+                <select id="brandFilter"
+                        onchange="applyFilters()">
+
+                    <option value="All">All Brands</option>
+                    <option value="Apple">Apple</option>
+                    <option value="Samsung">Samsung</option>
+                    <option value="Google">Google</option>
+                    <option value="OnePlus">OnePlus</option>
+                    <option value="Dell">Dell</option>
+                    <option value="HP">HP</option>
+                    <option value="Sony">Sony</option>
+                    <option value="boAt">boAt</option>
+                    <option value="Noise">Noise</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="filter-group">
+
+                <h4>Price</h4>
+
+                <select id="priceFilter"
+                        onchange="applyFilters()">
+
+                    <option value="All">All Prices</option>
+                    <option value="0-10000">Under ₹10,000</option>
+                    <option value="10000-30000">₹10,000 - ₹30,000</option>
+                    <option value="30000-60000">₹30,000 - ₹60,000</option>
+                    <option value="60000-100000">₹60,000 - ₹1,00,000</option>
+                    <option value="100000+">Above ₹1,00,000</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="filter-group">
+
+                <h4>Rating</h4>
+
+                <select id="ratingFilter"
+                        onchange="applyFilters()">
+
+                    <option value="All">All Ratings</option>
+                    <option value="4.5">4.5 & above</option>
+                    <option value="4">4 & above</option>
+                    <option value="3">3 & above</option>
+
+                </select>
+
+            </div>
+
+
+            <button class="btn btn-outline full-btn"
+                    onclick="clearFilters()">
+                Clear Filters
+            </button>
+
+        </aside>
+
+
+        <div class="products-area">
+
+            <div class="products-toolbar">
+
+                <span id="productResultCount">
+                    Showing products
+                </span>
+
+                <select id="sortFilter"
+                        onchange="applyFilters()">
+
+                    <option value="default">Sort By</option>
+                    <option value="low">Price: Low to High</option>
+                    <option value="high">Price: High to Low</option>
+                    <option value="rating">Highest Rated</option>
+
+                </select>
+
+            </div>
+
+            <div id="productGrid"
+                 class="product-grid"></div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= PRODUCT DETAIL ================= -->
+
+<section id="productDetailPage" class="page">
+
+    <div class="page-header">
+
+        <div class="container">
+
+            <p class="section-label">TECHWORLD</p>
+
+            <h1>Product Details</h1>
+
+        </div>
+
+    </div>
+
+    <div class="container">
+
+        <div id="productDetail"></div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= CART ================= -->
+
+<section id="cartPage" class="page">
+
+    <div class="page-header">
+
+        <div class="container">
+
+            <p class="section-label">MY TECHWORLD</p>
+
+            <h1>Shopping Cart</h1>
+
+            <p>Review your selected products.</p>
+
+        </div>
+
+    </div>
+
+
+    <div class="container cart-layout">
+
+        <div id="cartItems"></div>
+
+        <div class="cart-summary">
+
+            <h2>Order Summary</h2>
+
+            <div class="summary-row">
+                <span>Subtotal</span>
+                <strong id="cartSubtotal">₹0</strong>
+            </div>
+
+            <div class="summary-row">
+                <span>Discount</span>
+                <strong id="cartDiscount">₹0</strong>
+            </div>
+
+            <hr>
+
+            <div class="summary-row total">
+                <span>Total</span>
+                <strong id="cartTotal">₹0</strong>
+            </div>
+
+            <button class="btn btn-primary full-btn"
+                    onclick="showPage('checkout')">
+                Proceed to Checkout
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= CHECKOUT ================= -->
+
+<section id="checkoutPage" class="page">
+
+    <div class="page-header">
+
+        <div class="container">
+
+            <p class="section-label">SECURE CHECKOUT</p>
+
+            <h1>Checkout</h1>
+
+        </div>
+
+    </div>
+
+
+    <div class="container checkout-layout">
+
+        <div class="checkout-form">
+
+            <h2>Shipping Details</h2>
+
+            <form onsubmit="placeOrder(event)">
+
+                <label>Full Name</label>
+
+                <input type="text"
+                       id="checkoutName"
+                       required>
+
+
+                <label>Phone Number</label>
+
+                <input type="tel"
+                       id="checkoutPhone"
+                       required>
+
+
+                <label>Address</label>
+
+                <textarea id="checkoutAddress"
+                          required></textarea>
+
+
+                <label>City</label>
+
+                <input type="text"
+                       id="checkoutCity"
+                       required>
+
+
+                <label>PIN Code</label>
+
+                <input type="text"
+                       id="checkoutPin"
+                       required
+                       maxlength="6">
+
+
+                <h3>Payment Method</h3>
+
+                <label class="payment-option">
+
+                    <input type="radio"
+                           name="payment"
+                           value="UPI"
+                           checked>
+
+                    UPI
+
+                </label>
+
+
+                <label class="payment-option">
+
+                    <input type="radio"
+                           name="payment"
+                           value="Cash on Delivery">
+
+                    Cash on Delivery
+
+                </label>
+
+
+                <button type="submit"
+                        class="btn btn-primary full-btn">
+
+                    Place Order
+
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <div class="checkout-summary">
+
+            <h2>Your Order</h2>
+
+            <div id="checkoutItems"></div>
+
+            <hr>
+
+            <div class="summary-row">
+
+                <span>Subtotal</span>
+
+                <strong id="checkoutSubtotal">₹0</strong>
+
+            </div>
+
+            <div class="summary-row total">
+
+                <span>Total</span>
+
+                <strong id="checkoutTotal">₹0</strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= ACCOUNT ================= -->
+
+<section id="accountPage" class="page">
+
+    <div class="page-header">
+
+        <div class="container">
+
+            <p class="section-label">MY TECHWORLD</p>
+
+            <h1>My Account</h1>
+
+            <p>Manage your profile, orders and wishlist.</p>
+
+        </div>
+
+    </div>
+
+    <div class="container">
+
+        <div id="accountContent"></div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= WISHLIST ================= -->
+
+<section id="wishlistPage" class="page">
+
+    <div class="page-header">
+
+        <div class="container">
+
+            <p class="section-label">MY TECHWORLD</p>
+
+            <h1>My Wishlist</h1>
+
+            <p>Your saved products.</p>
+
+        </div>
+
+    </div>
+
+    <div class="container">
+
+        <div id="wishlistProducts"
+             class="product-grid"></div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= DEALS ================= -->
+
+<section id="dealsPage" class="page">
+
+    <div class="page-header">
+
+        <div class="container">
+
+            <p class="section-label">SPECIAL OFFERS</p>
+
+            <h1>Today's Deals</h1>
+
+            <p>Save more on selected technology.</p>
+
+        </div>
+
+    </div>
+
+    <div class="container">
+
+        <div id="dealProducts"
+             class="product-grid"></div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= ORDER TRACKING ================= -->
+
+<section id="trackingPage" class="page">
+
+    <div class="page-header">
+
+        <div class="container">
+
+            <p class="section-label">MY TECHWORLD</p>
+
+            <h1>Track Your Order</h1>
+
+            <p>Check your order status.</p>
+
+        </div>
+
+    </div>
+
+
+    <div class="container">
+
+        <div class="tracking-box">
+
+            <h2>
+                <i class="fa-solid fa-location-dot"></i>
+                Track Order
+            </h2>
+
+            <p>
+                Enter your TechWorld order ID to check the status.
+            </p>
+
+
+            <div class="tracking-search">
+
+                <input
+                    type="text"
+                    id="trackingOrderId"
+                    placeholder="Example: TW12345678">
+
+                <button class="btn btn-primary"
+                        onclick="trackOrder()">
+
+                    <i class="fa-solid fa-truck"></i>
+
+                    Track Order
+
+                </button>
+
+            </div>
+
+
+            <div id="trackingResult"></div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= ABOUT ================= -->
+
+<section id="aboutPage" class="page">
+
+    <div class="page-header">
+
+        <div class="container">
+
+            <p class="section-label">ABOUT US</p>
+
+            <h1>About TechWorld</h1>
+
+            <p>Your trusted electronics destination.</p>
+
+        </div>
+
+    </div>
+
+    <div class="container content-card">
+
+        <h2>Technology Made Simple</h2>
+
+        <p>
+            TechWorld is an electronics and gadgets e-commerce
+            website created to make shopping for technology simple,
+            convenient and enjoyable.
+        </p>
+
+        <p>
+            Browse smartphones, laptops, audio products,
+            wearables and accessories from popular brands.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ================= CONTACT ================= -->
+
+<section id="contactPage" class="page">
+
+    <div class="page-header">
+
+        <div class="container">
+
+            <p class="section-label">GET IN TOUCH</p>
+
+            <h1>Contact Us</h1>
+
+            <p>We are happy to hear from you.</p>
+
+        </div>
+
+    </div>
+
+    <div class="container content-card">
+
+        <form onsubmit="submitContactForm(event)">
+
+            <label>Name</label>
+
+            <input id="contactName"
+                   type="text"
+                   required>
+
+
+            <label>Email</label>
+
+            <input type="email"
+                   required>
+
+
+            <label>Message</label>
+
+            <textarea required></textarea>
+
+
+            <button class="btn btn-primary"
+                    type="submit">
+
+                Send Message
+
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- ================= TOAST ================= -->
+
+<div id="toast">
+
+    <i class="fa-solid fa-circle-check"></i>
+
+    <span id="toastMessage"></span>
+
+</div>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <div class="footer-content">
+
+        <div>
+
+            <h2>
+                Tech<span>World</span>
+            </h2>
+
+            <p>Electronics & Gadgets</p>
+
+        </div>
+
+
+        <div>
+
+            <h3>Quick Links</h3>
+
+            <p onclick="showPage('home')">
+                Home
+            </p>
+
+            <p onclick="showPage('products')">
+                Products
+            </p>
+
+            <p onclick="showPage('deals')">
+                Deals
+            </p>
+
+            <p onclick="showPage('tracking')">
+                Track Order
+            </p>
+
+            <p onclick="showPage('contact')">
+                Contact
+            </p>
+
+        </div>
+
+
+        <div>
+
+            <h3>My Account</h3>
+
+            <p onclick="showPage('account')">
+                Account
+            </p>
+
+            <p onclick="showPage('wishlist')">
+                Wishlist
+            </p>
+
+            <p onclick="showPage('cart')">
+                Cart
+            </p>
+
+            <p onclick="showPage('tracking')">
+                Track Order
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="copyright">
+
+        © 2026 TechWorld. All Rights Reserved.
+
+    </div>
+
+</footer>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
